@@ -5,6 +5,7 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"start": "ts-node-dev --respawn src/index.ts",
+		"build": "tsc",
 		"db:setup": "ts-node ./src/test-utils/setup.ts",
 		"test": "npm run db:setup && jest"
 	},
