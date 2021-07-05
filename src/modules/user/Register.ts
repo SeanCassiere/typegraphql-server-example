@@ -18,7 +18,7 @@ export class RegisterResolver {
 		const user = await User.create({
 			firstName,
 			lastName,
-			email,
+			email: email.toLowerCase(),
 			password: hashedPassword,
 		}).save();
 
