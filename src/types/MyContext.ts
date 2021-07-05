@@ -1,4 +1,4 @@
-import { Request } from "express";
+import { Request, Response } from "express";
 import { Session } from "express-session";
 
 export type SessionWithUser = Session & { userId: number };
@@ -8,4 +8,5 @@ export type AuthRequest = Request & {
 };
 export interface MyContext {
 	req: AuthRequest;
+	res: Response;
 }
