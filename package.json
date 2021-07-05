@@ -2,9 +2,11 @@
 	"name": "typegraphql-server-example",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
+	"main": "dist/index.js",
 	"scripts": {
-		"start": "ts-node-dev --respawn src/index.ts"
+		"start": "ts-node-dev --respawn src/index.ts",
+		"db:setup": "ts-node ./src/test-utils/setup.ts",
+		"test": "npm run db:setup && jest"
 	},
 	"keywords": [],
 	"author": "",
@@ -36,10 +38,14 @@
 		"@types/express-session": "^1.17.3",
 		"@types/graphql": "^14.5.0",
 		"@types/ioredis": "^4.26.4",
+		"@types/jest": "^26.0.23",
 		"@types/node": "^16.0.0",
 		"@types/nodemailer": "^6.4.2",
 		"@types/uuid": "^8.3.1",
+		"jest": "^27.0.6",
 		"nodemon": "^2.0.9",
+		"ts-jest": "^27.0.3",
+		"ts-node": "^10.0.0",
 		"ts-node-dev": "^1.1.8",
 		"typescript": "^4.3.5"
 	}
