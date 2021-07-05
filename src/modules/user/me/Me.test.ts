@@ -41,6 +41,8 @@ describe("Me", () => {
 			userId: user.id,
 		});
 
+		console.log("meQuery true", response);
+
 		expect(response).toMatchObject({
 			data: {
 				me: {
@@ -57,6 +59,8 @@ describe("Me", () => {
 		const response = await gCall({
 			source: meQuery,
 		});
+
+		console.log("meQuery null", response);
 
 		expect(response).toMatchObject({
 			data: {

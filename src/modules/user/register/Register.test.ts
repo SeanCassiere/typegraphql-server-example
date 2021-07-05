@@ -20,7 +20,6 @@ mutation RegisterMutation($data: RegisterInput!) {
   register(
     data: $data
   ) {
-    id
     firstName
     lastName
     email
@@ -43,6 +42,8 @@ describe("Register", () => {
 				data: user,
 			},
 		});
+
+		console.log("register create user:", response);
 
 		expect(response).toMatchObject({
 			data: {

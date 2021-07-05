@@ -46,7 +46,7 @@ describe("Login", () => {
 			},
 		});
 
-		console.log(response);
+		console.log("login confirmed user:", response);
 
 		expect(response).toMatchObject({
 			data: {
