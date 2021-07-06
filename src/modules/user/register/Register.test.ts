@@ -35,7 +35,7 @@ describe("Register", () => {
 			email: faker.internet.email().toLowerCase(),
 			password: faker.internet.password(),
 		};
-
+		// console.log("user for register:", user);
 		const response = await gCall({
 			source: registerMutation,
 			variableValues: {

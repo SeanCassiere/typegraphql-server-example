@@ -4,14 +4,14 @@ import brcypt from "bcryptjs";
 import { User } from "../../entity/User";
 import { redis } from "../../redis";
 import { forgotPasswordPrefix } from "../constants/redisPrefixes";
-import { ChangePasswordInput } from "./changePassword/ChangePasswordInput";
+import { ChangePasswordFromForgotInput } from "./changePasswordFromForgot/ChangePasswordFromForgotInput";
 import { MyContext } from "../../types/MyContext";
 
 @Resolver()
-export class ChangePasswordResolver {
+export class ChangePasswordFromForgotResolver {
 	@Mutation(() => User, { nullable: true })
-	async changePassword(
-		@Arg("data") { token, password }: ChangePasswordInput,
+	async changePasswordFromForgot(
+		@Arg("data") { token, password }: ChangePasswordFromForgotInput,
 		@Ctx() ctx: MyContext
 	): Promise<User | null> {
 		const userId = await redis.get(forgotPasswordPrefix + token);

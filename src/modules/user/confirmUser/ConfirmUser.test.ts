@@ -1,10 +1,12 @@
 import { Connection } from "typeorm";
 import faker from "faker";
+import { v4 } from "uuid";
 
 import { testConn } from "../../../test-utils/testConn";
 import { gCall } from "../../../test-utils/gCall";
 import { redis } from "../../../redis";
 import { User } from "../../../entity/User";
+import { confirmationEmailPrefix } from "../../constants/redisPrefixes";
 
 let conn: Connection;
 beforeAll(async () => {
@@ -15,20 +17,14 @@ afterAll(async () => {
 	await conn.close();
 });
 
-const meQuery = `
-	{
-		me {
-			id
-			firstName
-			lastName
-			email
-			name
-		}
-	}
+const confirmUserQuery = `
+  mutation ConfirmUser($token: String!) {
+    confirmUser(token: $token)
+  }
 `;
 
-describe("Me", () => {
-	it("get user", async () => {
+describe("Confirm User", () => {
+	it("confirm a unconfirmed user", async () => {
 		const user = await User.create({
 			firstName: faker.name.firstName(),
 			lastName: faker.name.lastName(),
@@ -36,35 +32,35 @@ describe("Me", () => {
 			password: faker.internet.password(),
 		}).save();
 
+		const token = v4();
+		await redis.set(confirmationEmailPrefix + token, user.id, "ex", 60 * 60 * 24); //Expire in 1 day
+
 		const response = await gCall({
-			source: meQuery,
-			userId: user.id,
+			source: confirmUserQuery,
+			variableValues: { token },
 		});
 
-		console.log("meQuery true", response);
+		console.log("confirm a unconfirmed user:", response);
 
 		expect(response).toMatchObject({
 			data: {
-				me: {
-					id: `${user.id}`,
-					firstName: user.firstName,
-					lastName: user.lastName,
-					email: user.email,
-				},
+				confirmUser: true,
 			},
 		});
 	});
 
-	it("return null", async () => {
+	it("return null, if user already confirmed", async () => {
+		const token = v4();
 		const response = await gCall({
-			source: meQuery,
+			source: confirmUserQuery,
+			variableValues: { token },
 		});
 
-		console.log("meQuery null", response);
+		console.log("confirm a confirmed user:", response);
 
 		expect(response).toMatchObject({
 			data: {
-				me: null,
+				confirmUser: false,
 			},
 		});
 	});
