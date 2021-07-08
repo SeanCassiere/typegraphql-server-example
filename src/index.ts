@@ -27,7 +27,12 @@ const main = async () => {
 
 	const RedisStore = connectRedis(session);
 
-	app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+	app.use(
+		cors({
+			origin: "http://localhost:3000",
+			credentials: true,
+		})
+	);
 
 	app.use(
 		session({
@@ -46,7 +51,7 @@ const main = async () => {
 		})
 	);
 
-	apolloServer.applyMiddleware({ app });
+	apolloServer.applyMiddleware({ app, cors: false });
 
 	app.listen(4000, () => console.log(`Server started on port 4000`));
 };
