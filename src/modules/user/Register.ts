@@ -1,10 +1,10 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import brcypt from "bcryptjs";
 
-import { User } from "../../entity/User";
+import { User } from "#root/entity/User";
 import { RegisterInput } from "./register/RegisterInput";
-import { sendEmail } from "../utils/sendEmail";
-import { createConfirmationUrl } from "../utils/createConfirmationUrl";
+import { sendEmail } from "#root/modules/utils/sendEmail";
+import { createConfirmationUrl } from "#root/modules/utils/createConfirmationUrl";
 
 @Resolver()
 export class RegisterResolver {

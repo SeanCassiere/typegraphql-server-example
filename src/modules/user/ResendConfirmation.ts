@@ -1,8 +1,8 @@
 import { Resolver, Mutation, Arg } from "type-graphql";
 
-import { User } from "../../entity/User";
-import { sendEmail } from "../utils/sendEmail";
-import { createConfirmationUrl } from "../utils/createConfirmationUrl";
+import { User } from "#root/entity/User";
+import { sendEmail } from "#root/modules/utils/sendEmail";
+import { createConfirmationUrl } from "#root/modules/utils/createConfirmationUrl";
 import { ResendConfirmationInput } from "./resendConfirmation/ResendConfirmationInput";
 
 @Resolver()

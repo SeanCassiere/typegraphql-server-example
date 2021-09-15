@@ -1,9 +1,9 @@
 import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
 import brcypt from "bcryptjs";
 
-import { User } from "../../entity/User";
+import { User } from "#root/entity/User";
 import { ChangePasswordInput } from "./changePassword/ChangePasswordInput";
-import { MyContext } from "../../types/MyContext";
+import { MyContext } from "#root/types/MyContext";
 
 @Resolver()
 export class ChangePasswordResolver {
